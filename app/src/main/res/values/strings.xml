@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TestProject</string>
+    <string name="line0_insta"> &#8226; Instagram <b>require</b> login to download videos</string>
+    <string name="line1_insta"> &#8226; On Instagram app, <b>copy link</b> on the video you want to download</string>
+    <string name="line2_insta"> &#8226; Open <b>Easy Tube Downloader</b>, paste your link in <b>Quick Download</b> button</string>
+    <string name="line3_insta"> &#8226; Click <b>Download button</b>, done!</string>
+    <string name="how_to_download">How to download</string>
+    <string name="insta_1">Latest Instagram update requires you to log in to download posts</string>
+    <string name="insta_2">The website you will log in is the Instagram official website. We won\'t get your information in any way.</string>
+    <string name="official_insta">Instagram official website.</string>
 </resources>

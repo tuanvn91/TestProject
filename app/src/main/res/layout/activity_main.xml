@@ -1,115 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#181a20"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll_paste"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/bg_ll_paste"
-        android:orientation="vertical">
+        android:background="#181a20"
+        tools:context=".MainActivity">
 
-        <EditText
-            android:id="@+id/et_paste"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/bg_et_paste"
-            android:hint="Paste your link here"
-            android:paddingStart="10dp" />
-
-        <TextView
-            android:id="@+id/btn_paste"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_btn_paste"
-            android:gravity="center"
-            android:text="PASTE"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/result_video"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_paste"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/bg_ll_paste"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
 
         <LinearLayout
+            android:id="@+id/ll_paste"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_ll_paste"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/thumb"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"
-                android:src="@drawable/ic_launchers" />
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/et_paste"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
-                android:orientation="vertical">
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_et_paste"
+                android:hint="Paste your link here"
+                android:paddingStart="10dp" />
 
-                <TextView
-                    android:id="@+id/title_video"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:ellipsize="end"
-                    android:text="This is title video"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_atop"
+                android:indeterminateTint="@color/purple_200"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"/>
 
-
-                <TextView
-                    android:id="@+id/author_video"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="This is author video"
-                    android:textColor="#b1b5c3"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
+            <TextView
+                android:id="@+id/btn_paste"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_btn_paste"
+                android:gravity="center"
+                android:text="PASTE"
+                android:textColor="@color/white" />
         </LinearLayout>
 
-        <TextView
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:id="@+id/tv_download"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="Download"
-            android:background="@drawable/bg_tv_download"
+        <RelativeLayout
+            android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_paste"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10dp">
 
-    </LinearLayout>
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/img_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/giphy" />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/banner"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10dp" />
+
+
+    </RelativeLayout>
+</ScrollView>
