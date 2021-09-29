@@ -52,5 +52,5 @@ dependencies {
     implementation 'com.github.muicv91.MuicvModule:DownloadPopup:v1.0.30'
     implementation 'com.loopj.android:android-async-http:1.4.11'
     implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1'
-
+    implementation 'org.apache.commons:commons-text:1.9'
 }

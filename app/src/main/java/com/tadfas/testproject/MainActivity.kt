@@ -5,11 +5,13 @@ import android.content.ClipboardManager
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,7 @@ import com.loopj.android.http.JsonHttpResponseHandler
 import com.tadfas.testproject.databinding.ActivityMainBinding
 import com.tadfas.testproject.instaparse.*
 import cz.msebera.android.httpclient.Header
+import org.apache.commons.lang3.StringUtils
 import org.json.JSONObject
 import java.net.URI
 
@@ -46,6 +49,9 @@ class MainActivity : AppCompatActivity() {
             .load(R.drawable.giphy50)
             .into(binding.imgBanner)
 
+
+//        binding.progressBar.setIndicatorColor(resources.getColor(R.color.colorAccent))
+//        binding.progressBar.setBackgroundColor(resources.getColor(R.color.teal_200))
         binding.btnPaste.setOnClickListener {
             try {
                 val clipManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -54,8 +60,11 @@ class MainActivity : AppCompatActivity() {
                     val item = it.getItemAt(0)
                     val text = item.text.toString()
                     binding.etPaste.setText(text)
+                    binding.etPaste.inputType = InputType.TYPE_NULL
                     binding.btnPaste.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
+
+                    downloadInsta(text,binding.progressBar)
                 }
 
             } catch (e: Exception) {
@@ -65,11 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         val url_download = "https://www.instagram.com/p/CTq9j13KvfC/?utm_medium=copy_link"
 
-        val progressDialog = ProgressDialog(this, R.style.AppCompatProgressDialogStyle)
-        progressDialog.setMessage("Extract data...")
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        progressDialog.setCancelable(true)
-        progressDialog.setCanceledOnTouchOutside(true)
+
 
 //        if (mPrefs.getInt(ISINSTALOGIN, 0) == 0) {
 //            dialogLogin(url_download)
@@ -79,8 +84,9 @@ class MainActivity : AppCompatActivity() {
 //            downloadInsta(url_download)
 //        }
 
-        var caption = "Chuyên gia viết lời bài hát siêu bắt tai \uD83D\uDE0D\\nNguồn tiktok: @chibrillie99\\n#tranchauden";
-        caption = caption.replace("\n", "")
+        var caption = "Chuyên gia viết lời bài hát siêu bắt tai \uD83D\uDE0D\nNguồn tiktok: @chibrillie99\n#tranchauden";
+        caption = caption.replace("\n", " ")
+//        caption = StringUtils.strip(caption, "\n ")
         val videoModel = VideoModel(
             "https://instagram.fhan5-7.fna.fbcdn.net/v/t51.2885-15/e15/243203890_375914467525368_8086397711094079055_n.jpg?_nc_ht=instagram.fhan5-7.fna.fbcdn.net&_nc_cat=100&_nc_ohc=bAo9iIl8qOUAX_KM467&edm=AABBvjUBAAAA&ccb=7-4&oh=c3cf140703a680c06b691c3e4a2e797f&oe=61552875&_nc_sid=83d603",
             caption,
@@ -130,19 +136,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun downloadInsta(url: String) {
+    private fun downloadInsta(url: String, progressBar: ProgressBar) {
         instagramCallback(url, object : MusicallyDelegate {
             override fun OnFailure(str: String?) {
                 runOnUiThread {
                     Toast.makeText(this@MainActivity, "Can not extract!", Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
+                    binding.btnPaste.visibility = View.VISIBLE
                 }
             }
 
             override fun OnSuccess(musicallyModel: ArrayList<VideoModel>) {
                 runOnUiThread {
                     data = musicallyModel
-
-                }
+                    adapter.setData(data)
+                    adapter.notifyDataSetChanged()
+                    progressBar.visibility = View.GONE
+                    binding.btnPaste.visibility = View.VISIBLE                }
             }
         })
     }
