@@ -8,4 +8,8 @@
     <string name="insta_1">Latest Instagram update requires you to log in to download posts</string>
     <string name="insta_2">The website you will log in is the Instagram official website. We won\'t get your information in any way.</string>
     <string name="official_insta">Instagram official website.</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
