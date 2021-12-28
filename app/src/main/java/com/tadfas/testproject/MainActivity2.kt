@@ -3,6 +3,7 @@ package com.tadfas.testproject
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -16,6 +17,7 @@ import org.schabi.newpipe.extractor.StreamingService
 import org.schabi.newpipe.extractor.StreamingService.LinkType
 import org.schabi.newpipe.extractor.exceptions.ExtractionException
 import org.schabi.newpipe.extractor.search.SearchInfo
+import java.util.*
 import java.util.concurrent.Callable
 
 class MainActivity2 : AppCompatActivity() {
@@ -24,8 +26,8 @@ class MainActivity2 : AppCompatActivity() {
     private val disposables = CompositeDisposable()
     private val suggestionPublisher = PublishSubject.create<String?>()
     private var searchString = "khac viet"
-    var contentFilter = arrayOfNulls<String>(0)
     var sortFilter: String? = null
+    var contentFilter = arrayOfNulls<String>(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +40,12 @@ class MainActivity2 : AppCompatActivity() {
 //        text.setOnClickListener {
 //            bottomsheet.show()
 //        }
-        search("tuan hung", "aadsf", "null")
+//        search("tuan hung")
+        startLoading(false)
     }
 
     private fun search(
-        theSearchString: String,
-        theContentFilter: String,
-        theSortFilter: String
+        theSearchString: String
     ) {
 
         if (theSearchString.isEmpty()) {
@@ -102,20 +103,16 @@ class MainActivity2 : AppCompatActivity() {
 
 
     fun startLoading(forceLoad: Boolean) {
-        disposables.clear()
-        if (searchDisposable != null) {
-            searchDisposable!!.dispose()
-        }
+
+
         searchDisposable = searchFor(
-            1,
-            searchString,
-            listOf(*contentFilter),
-            sortFilter
-        )
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnEvent { searchResult, throwable -> }
-            ?.subscribe({ result: SearchInfo ->
+            0,
+            "tuan con")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnEvent { searchResult, throwable -> }
+            .subscribe({ result: SearchInfo ->
+                Log.d("adstest", "result size: ${result.contentFilters.size}")
                 handleResult(result)
             }) { exception: Throwable ->
 
@@ -165,17 +162,16 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     fun searchFor(
-        serviceId: Int, searchString: String?,
-        contentFilter: List<String?>?,
-        sortFilter: String?
-    ): Single<SearchInfo>? {
+        serviceId: Int, searchString: String,
+
+    ): Single<SearchInfo> {
 //        ExtractorHelper.checkServiceId(serviceId)
         return Single.fromCallable {
             SearchInfo.getInfo(
                 NewPipe.getService(serviceId),
                 NewPipe.getService(serviceId)
                     .searchQHFactory
-                    .fromQuery(searchString, contentFilter, sortFilter)
+                    .fromQuery(searchString, listOf(*contentFilter), null)
             )
         }
     }

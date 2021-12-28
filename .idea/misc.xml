@@ -19,12 +19,13 @@
         <entry key="..\:/Android/Testproject/app/src/main/res/drawable/rounded_button.xml" value="0.3697916666666667" />
         <entry key="..\:/Android/Testproject/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Android/Testproject/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android/Testproject/app/src/main/res/layout/activity_main3.xml" value="0.34148550724637683" />
         <entry key="..\:/Android/Testproject/app/src/main/res/layout/dialog_rounded_bottom_sheet.xml" value="0.35280797101449274" />
         <entry key="..\:/Android/Testproject/app/src/main/res/layout/item_video.xml" value="0.3536458333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
